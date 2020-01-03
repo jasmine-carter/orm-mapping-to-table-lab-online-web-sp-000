@@ -5,6 +5,12 @@ class Student
   attr_accessor :name, :grade
   attr_reader :id
 
+  def initialize(name, grade, id=nil)
+    @id = id
+    @name = name
+    @grade = grade
+  end
+
   def self.create_table
     #it creates the table in the db if it doesn't already exist
     sql = <<-SQL
@@ -14,7 +20,7 @@ class Student
         grade TEXT
       )
       SQL
-    DB[:conn].execute(sql)  
+    DB[:conn].execute(sql)
   end
 
   def save
