@@ -31,7 +31,13 @@ class Student
   end
 
   def save
-    #it saves an individual student to the database
+    sql = <<-SQL
+    INSERT INTO students (name, grade)
+    VALUES (?, ?)
+    SQL
+    DB[:conn].excecute(sql, self.name, self.grade)
+
+    @id = DB[:conn].execute("SELECT last_insert_rowi() FROM students")[0][0]
   end
 
   def create
